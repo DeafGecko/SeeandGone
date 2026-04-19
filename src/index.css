@@ -1,0 +1,11 @@
+@import "tailwindcss"; /* */
+
+@theme {
+  /* Soft, relaxing neutrals for SeeandGone */
+  --color-vanish-bg: #F5F5F3;      /* Warm bone/sand */
+  --color-vanish-surface: #FFFFFF; /* Soft paper white */
+  --color-vanish-sage: #A7AD9B;    /* Muted organic green */
+  --color-vanish-charcoal: #3A3D42; /* Soft grey text */
+  
+  --shadow-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.04);
+}

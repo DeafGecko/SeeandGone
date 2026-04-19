@@ -1,73 +1,33 @@
-# React + TypeScript + Vite
+### SeeandGone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Tactile UX Highlights
+"Hold to Seal" Interaction: Rather than a standard click, users must physically hold the seal button for 1.5 seconds. This creates a "weighted" sense of security, using Framer Motion to visualize the encryption progress as the button fills with color.
 
-Currently, two official plugins are available:
+Digital Smoke Dissolve: When a note is destroyed, the text doesn't simply disappear; it utilizes a high-performance blur and Y-axis offset to simulate the message evaporating upward like smoke.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Micro-Interactions: Features a custom "Typewriter" landing effect and glassmorphic UI components that react to user hovering and focus.
 
-## React Compiler
+## Security Deep-Dive
+Zero-Knowledge Architecture: The application is designed so that the server (Firebase) is "blind" to the data it hosts.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Client-Side Only: Encryption (AES-256) happens entirely in the browser before the data is transmitted.
 
-## Expanding the ESLint configuration
+The URL Hash Strategy: The decryption key is stored in the URL window.location.hash (the part after the #). Since browsers do not send hashes to servers, the key never touches the Firebase database or Vercel logs.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Burn-on-Read Logic: Security rules and frontend logic coordinate to trigger a deleteDoc command the moment a note is successfully decrypted, ensuring the vault is emptied immediately.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tech Stack
+Frontend Library: React 18 with Vite for lightning-fast Hot Module Replacement (HMR).
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Language: TypeScript to ensure type safety across the encryption and database interfaces.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Styling: Tailwind CSS v4, utilizing a modern minimalist "Coffee Mode" color palette.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Database & Backend: Firebase Firestore for real-time NoSQL data handling and secure backend-as-a-service.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Animations: Framer Motion for orchestrating complex, physics-based UI transitions.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Haptic Branding
+Mechanical Release Pulse: To bridge the gap between digital and physical, SeeandGone utilizes the Web Vibration API.
+
+Custom Waveform: On mobile devices, the "Destroy" action triggers a specialized [10, 30, 100] vibration pattern—a light "click" followed by a heavy "thump"—to simulate the feeling of a physical seal breaking or a document being shredded.

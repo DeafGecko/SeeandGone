@@ -1,4 +1,4 @@
-### SeeandGone
+# SeeandGone
 
 ## Tactile UX Highlights
 "Hold to Seal" Interaction: Rather than a standard click, users must physically hold the seal button for 1.5 seconds. This creates a "weighted" sense of security, using Framer Motion to visualize the encryption progress as the button fills with color.
